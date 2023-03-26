@@ -19,17 +19,12 @@ jobs:
 
       - name: Modify file
         run: |
-          d=`date '+%d-%m-%Y %I:%M:%S %p'`
-          echo $d > LAST_UPDATED
+          date '+%d-%m-%Y %I:%M:%S %p' > LAST_UPDATED
 
-      - name: Commit changes
+      - name: Commit and Push Changes
         run: |
           git config --local user.email "parikshit.tunlr@slmail.me"
           git config --local user.name "Parixshit"
           git add LAST_UPDATED
           git commit -s -m "feat: auto commit"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git push -u origin master
