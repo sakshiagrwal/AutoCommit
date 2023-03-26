@@ -15,7 +15,7 @@ do
     # Update the LAST_UPDATED file with the current date and time, the total number of commits, and the commit message
     current_time=$(date "+%Y-%m-%d %H:%M:%S")
     commit_message="Commit $i of $num_commits 🚀 $current_time"
-    echo -e "Current date and time: $current_time.\nTotal number of commits: $tot_commits.\nCommit message: $commit_message\n" > LAST_UPDATED
+    echo -e "Current date and time: $current_time\nTotal number of commits: $tot_commits\nCommit message: $commit_message" > LAST_UPDATED
 
     # Add LAST_UPDATED file to git
     git add LAST_UPDATED
