@@ -16,8 +16,8 @@ do
     # Add LAST_UPDATED file to git
     git add LAST_UPDATED
 
-    # Commit the changes with a message
-    git commit -s -m "$num_commits - $current_time"
+    # Commit the changes with a message containing the current iteration and the current time
+    git commit -s -m "$i - $current_time"
 
     # Sleep for 1 second to add some randomness
     sleep 1
