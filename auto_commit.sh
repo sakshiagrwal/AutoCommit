@@ -16,7 +16,7 @@ do
     # Add LAST_UPDATED file to git
     git add LAST_UPDATED
 
-    # Commit the changes with a message containing the current iteration, total number of commits, a rocket emoji, and the current time
+    # Commit the changes with a message containing the current commit number, total number of commits, a rocket emoji, and the current time
     git commit -s -m "Commit $i of $num_commits 🚀 $current_time"
 
     # Sleep for 1 second to add some randomness
