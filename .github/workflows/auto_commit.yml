@@ -5,8 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: "0 * * * 0,1"
-    - cron: "0 */4 * * 2,4"
+    - cron: "0 0 * * *"
 
 jobs:
   auto_commit:
@@ -22,6 +21,5 @@ jobs:
         run: |
           git config --local user.email "parikshit.tunlr@slmail.me"
           git config --local user.name "Parixshit"
-          chmod +x auto_commit.sh
-          bash ./auto_commit.sh
+          chmod +x auto_commit.sh && bash auto_commit.sh
           git push -u origin master
