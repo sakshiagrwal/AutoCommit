@@ -18,14 +18,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Modify file
-        run: |
-          date '+%d-%m-%Y %I:%M:%S %p' > LAST_UPDATED
-
-      - name: Commit and Push Changes
+      - name: Modify, Commit and Push Changes
         run: |
           git config --local user.email "parikshit.tunlr@slmail.me"
           git config --local user.name "Parixshit"
-          git add LAST_UPDATED
-          git commit -s -m "feat: auto commit"
+          chmod +x auto_commit.sh
+          bash ./auto_commit.sh
           git push -u origin master
