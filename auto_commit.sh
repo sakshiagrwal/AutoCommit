@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Count the total number of commits in the current branch
-tot_commits=$(git rev-list --count HEAD)
-
 # Generate a random number of commits between 1 and 30
 num_commits=$(( ( RANDOM % 30 ) + 1 ))
+
+# Count the total number of commits in the current branch
+tot_commits=$(git rev-list --count HEAD)
 
 # Create LAST_UPDATED file if not already present
 touch LAST_UPDATED
