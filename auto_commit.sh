@@ -4,7 +4,7 @@
 num_commits=$(( ( RANDOM % 30 ) + 1 ))
 
 # Count the total number of commits in the current branch
-tot_commits=$(git rev-list --count HEAD)
+tot_commits=$(( $(git rev-list --count HEAD) + num_commits ))
 
 # Create LAST_UPDATED file if not already present
 touch LAST_UPDATED
