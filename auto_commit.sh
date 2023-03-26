@@ -14,7 +14,7 @@ for (( i=1; i<=$num_commits; i++ ))
 do
     # Update the LAST_UPDATED file with the current date and time and the total number of commits
     current_time=$(date "+%Y-%m-%d %H:%M:%S")
-    echo "Current date and time: $current_time. Total number of commits: $tot_commits" > LAST_UPDATED
+    echo "Current date and time: $current_time.\nTotal number of commits: $tot_commits" > LAST_UPDATED
 
     # Add LAST_UPDATED file to git
     git add LAST_UPDATED
