@@ -26,10 +26,10 @@ jobs:
         run: |
           git config --local user.email "parikshit.tunlr@slmail.me"
           git config --local user.name "Parixshit"
-          git add -A
+          git add LAST_UPDATED
           emojis=("💻" "📱" "🚀" "🛸" "🔭" "📡" "🔬" "🧬" "🧪" "🌡️" "⚡" "🔌" "🕹️" "🎮" "👾" "🕰️" "💾" "💿" "🖨️" "📷" "🎥" "🎞️" "🎬" "🎧" "🎤" "🎵" "🎶" "🎼" "🔊" "🎙️" "🎛️" "🎚️" "🎧" "🎸" "🎺" "🎷" "🥁" "🎻" "📻" "🔍" "🔬")
           rand_emoji=${emojis[$RANDOM % ${#emojis[@]}]}
-          git commit -m "feat: ${rand_emoji} auto commit"
+          git commit -s -m "feat: ${rand_emoji} auto commit"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
