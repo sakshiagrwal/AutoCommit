@@ -17,7 +17,7 @@ do
     git add LAST_UPDATED
 
     # Commit the changes with a message containing the current iteration, total number of commits, a rocket emoji, and the current time
-    git commit -s -m "Auto commit: iteration $i of $num_commits 🚀 $current_time"
+    git commit -s -m "Commit $i of $num_commits 🚀 $current_time"
 
     # Sleep for 1 second to add some randomness
     sleep 1
