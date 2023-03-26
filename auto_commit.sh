@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Count the total number of commits in the current branch
+tot_commits=$(git rev-list --count HEAD)
+
 # Generate a random number of commits between 1 and 30
 num_commits=$(( ( RANDOM % 30 ) + 1 ))
 
@@ -9,9 +12,9 @@ touch LAST_UPDATED
 # Loop for the random number of commits
 for (( i=1; i<=$num_commits; i++ ))
 do
-    # Update the LAST_UPDATED file with current date and time
+    # Update the LAST_UPDATED file with the current date and time and the total number of commits
     current_time=$(date "+%Y-%m-%d %H:%M:%S")
-    echo "$current_time" > LAST_UPDATED
+    echo "Current date and time: $current_time. Total number of commits: $tot_commits" > LAST_UPDATED
 
     # Add LAST_UPDATED file to git
     git add LAST_UPDATED
