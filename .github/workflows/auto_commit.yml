@@ -26,7 +26,7 @@ jobs:
           num_commits=$(( RANDOM % 30 + 1 ))
           total_commits=$(( $(git rev-list --count HEAD) + num_commits ))
           for i in $(seq $num_commits); do
-            commit_date=$(date -d "-$i days" "+%a, %d %b %Y %T")
+            commit_date=$(date -d "-$i days")
             commit_message="Auto commit: iteration $i of $num_commits 🚀 $commit_date"
             echo -e "**_Commit date: ${commit_date}_**\n\n**_Total commits: ${total_commits}_**" > README.md
             git add README.md
