@@ -30,7 +30,7 @@ jobs:
             commit_message="Auto commit: iteration $i of $num_commits 🚀 $commit_date"
             echo -e "**_Commit date: ${commit_date}_**\n\n**_Total commits: ${total_commits}_**" > README.md
             git add README.md
-            git commit -s -m "$commit_message"
+            git commit -s --date="$commit_date" -m "$commit_message"
             sleep 1
           done
 
