@@ -21,7 +21,7 @@ jobs:
 
       - name: Generate commits
         run: |
-          git config --local user.email "parikshit.tunlr@slmail.me"
+          git config --local user.email "87859520+Parixshit@users.noreply.github.com"
           git config --local user.name "Parixshit"
           num_commits=$(( RANDOM % 30 + 1 ))
           for i in $(seq $num_commits); do
