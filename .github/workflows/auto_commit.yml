@@ -24,10 +24,13 @@ jobs:
         with:
           ref: main
 
-      - name: Generate commits
+      - name: Set up Git
         run: |
           git config --local user.email "87859520+Parixshit@users.noreply.github.com"
           git config --local user.name "Parixshit"
+
+      - name: Generate commits
+        run: |
           num_commits=${{ inputs.num_commits }}
           if [[ -z "$num_commits" ]]; then
             num_commits=$(( RANDOM % 30 + 1 ))
