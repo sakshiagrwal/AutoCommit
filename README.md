@@ -1,5 +1,7 @@
 # Auto commit workflow
 
+[![Auto commit](https://github.com/Parixshit/red/actions/workflows/auto_commit.yml/badge.svg?branch=workflow)](https://github.com/Parixshit/red/actions/workflows/auto_commit.yml)
+
 This GitHub Actions workflow is designed to automatically generate and commit changes to a repository's `README.md` file on a schedule and when the `workflow` branch is pushed.
 
 ### Workflow
