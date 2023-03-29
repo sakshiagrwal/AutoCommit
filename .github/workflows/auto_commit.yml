@@ -26,9 +26,8 @@ jobs:
 
       - name: Generate commits
         run: |
-          num_commits=$(( RANDOM % 30 + 1 ))
-          for i in $(seq $num_commits); do
-            commit_message="feat: auto commit $i of $num_commits"
+          for i in $(seq $(( RANDOM % 30 + 1 ))); do
+            commit_message="feat: auto commit"
             sed -i "1s/.*/**$GITHUB_ACTOR Committed on: $(date +"%a, %d %b %Y %T")**/" README.md
             git add README.md
             git commit -m "$commit_message"
