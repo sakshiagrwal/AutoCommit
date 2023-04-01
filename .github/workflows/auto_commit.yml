@@ -20,8 +20,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --local user.email "87859520+Parixshit@users.noreply.github.com"
-          git config --local user.name "Parixshit"
+          git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
+          git config --local user.name "$GITHUB_ACTOR"
 
       - name: Generate commits
         run: |
