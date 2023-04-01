@@ -25,12 +25,12 @@ jobs:
         env:
           EMOJI_API_KEY: ${{ secrets.EMOJI_API_KEY }}
         run: |
-          for commit_number in $(seq $(( RANDOM % 30 + 1 ))); do
+          for random_commit_number in $(seq $(( RANDOM % 30 + 1 ))); do
             commit_date=$(date +"%a, %d %b %Y %T")
             emoji=$(curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' | shuf -n 1)
             sed -i "1s|^.*|**$GITHUB_ACTOR Committed on: $commit_date** $emoji|" README.md
             git add README.md
-            git commit -s -m "$emoji Commit $commit_number on $commit_date"
+            git commit -s -m "$emoji Commit $random_commit_number on $commit_date"
           done
 
       - name: Push Changes
