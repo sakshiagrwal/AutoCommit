@@ -3,6 +3,11 @@ name: Auto commit
 on:
   schedule:
     - cron: "0 0 * * 0,1,3,4,6"
+  workflow_dispatch:
+    inputs:
+      total_commit_number:
+        description: "The number of commits to generate"
+        default: "5"
 
 jobs:
   auto_commit:
@@ -11,7 +16,7 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           ref: main
@@ -25,7 +30,11 @@ jobs:
         env:
           EMOJI_API_KEY: ${{ secrets.EMOJI_API_KEY }}
         run: |
-          for random_commit_number in $(seq $(( RANDOM % 30 + 1 ))); do
+          total_commit_number=${{ inputs.total_commit_number }}
+          if [[ -z "$total_commit_number" ]]; then
+            total_commit_number=$(( RANDOM % 30 + 1 ))
+          fi
+          for random_commit_number in $(seq $total_commit_number); do
             commit_date=$(date +"%a, %d %b %Y %T")
             emoji=$(curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' | shuf -n 1)
             sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(git rev-parse HEAD) -->|" README.md
