@@ -29,7 +29,6 @@ jobs:
             commit_date=$(date +"%a, %d %b %Y %T")
             emoji=$(curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' | shuf -n 1)
             sed -i "1s/.*/**$GITHUB_ACTOR Committed on: $commit_date** $emoji <!-- $(git rev-parse HEAD) -->/" README.md
-            sed -i "3s#.*#**_[The commit which triggered the workflow]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA)_**#" README.md
             git add README.md
             git commit -s -m "$emoji Commit $random_commit_number on $commit_date"
           done
