@@ -19,6 +19,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
+          repository: Parixshit/Green
+          token: ${{ secrets.PAT }}
           ref: main
 
       - name: Configure Git
