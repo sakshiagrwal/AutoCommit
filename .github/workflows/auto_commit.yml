@@ -42,7 +42,7 @@ jobs:
           fi
           for random_commit_number in $(seq $total_commit_number); do
             if [[ $total_commit_number -gt 30 ]]; then
-              commit_date=$(date -d "-$(( RANDOM % 365 + 1 )) days ago" +"%a, %d %b %Y %T")
+              commit_date=$(date -d "$((RANDOM % 365)) days ago" +"%a, %d %b %Y %T")
             else
               commit_date=$(date +"%a, %d %b %Y %T")
             fi
