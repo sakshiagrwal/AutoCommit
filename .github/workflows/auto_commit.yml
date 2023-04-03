@@ -37,11 +37,15 @@ jobs:
             total_commit_number=$(( RANDOM % 30 + 1 ))
           fi
           for random_commit_number in $(seq $total_commit_number); do
-            commit_date=$(date +"%a, %d %b %Y %T")
+            if [[ $total_commit_number -gt 30 ]]; then
+              commit_date=$(date -d "-$(( RANDOM % 365 + 1 )) days ago" +"%a, %d %b %Y %T")
+            else
+              commit_date=$(date +"%a, %d %b %Y %T")
+            fi
             emoji=$(curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' | shuf -n 1)
             sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(git rev-parse HEAD) -->|" README.md
             git add README.md
-            git commit -s -m "$emoji Commit $random_commit_number on $commit_date"
+            git commit --date="$commit_date" -s -m "$emoji Commit $random_commit_number on $commit_date"
           done
 
       - name: Push Changes
