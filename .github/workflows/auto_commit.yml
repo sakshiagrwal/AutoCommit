@@ -28,9 +28,13 @@ jobs:
           git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
           git config --local user.name "$GITHUB_ACTOR"
 
-      - name: Generate Commits
+      - name: Download Emojis
         env:
           EMOJI_API_KEY: ${{ secrets.EMOJI_API_KEY }}
+        run: |
+          curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' > emojis.txt
+
+      - name: Generate Commits
         run: |
           total_commit_number=${{ inputs.total_commit_number }}
           if [[ -z "$total_commit_number" ]]; then
@@ -42,7 +46,7 @@ jobs:
             else
               commit_date=$(date +"%a, %d %b %Y %T")
             fi
-            emoji=$(curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' | shuf -n 1)
+            emoji=$(shuf -n 1 emojis.txt)
             sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(git rev-parse HEAD) -->|" README.md
             git add README.md
             git commit --date="$commit_date" -s -m "$emoji Commit $random_commit_number on $commit_date"
