@@ -10,7 +10,7 @@ The `auto_commit` job runs on the `ubuntu-latest` virtual machine and has write 
 
 1. **Checkout Repository:** This step checks out the `main` branch of the repository using the `actions/checkout@v3` action.
 2. **Configure Git:** This step configures the Git user to match the account that will be used for committing changes.
-3. **Generate Commits:** This step generates a random number of commits (up to 30) with a random emoji using the [Emoji API](https://emoji-api.com) which requires an API key. The `EMOJI_API_KEY` environment variable is set as a [secret](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md) in the repository.
+3. **Generate Commits:** This step generates a random number of commits (up to 30) with a random emoji using the [Emojis World](https://github.com/abourtnik/emojis-world) API.
 4. **Push Changes:** This step pushes the generated commits to the `main` branch of the repository.
 
 ### Schedule

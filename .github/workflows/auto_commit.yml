@@ -28,11 +28,9 @@ jobs:
           git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
           git config --local user.name "$GITHUB_ACTOR"
 
-      - name: Download Emojis
-        env:
-          EMOJI_API_KEY: ${{ secrets.EMOJI_API_KEY }}
+      - name: Fetch Emojis
         run: |
-          curl -s "https://emoji-api.com/categories/activities?access_key=$EMOJI_API_KEY" | jq -r '.[].character' > emojis.txt
+          curl -s "https://api.emojisworld.fr/v1/popular" | jq -r '.results[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
