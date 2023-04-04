@@ -1,11 +1,12 @@
-name: Auto commit
+name: Auto Commit
 
 on:
   schedule:
+    # This workflow runs at 00:00 (UTC) / 05:30 AM (IST) every day, except for Tuesdays and Fridays.
     - cron: "0 0 * * 0,1,3,4,6"
   workflow_dispatch:
     inputs:
-      total_commit_number:
+      num_commits:
         description: "The number of commits to generate"
         default: "5"
 
@@ -34,21 +35,22 @@ jobs:
 
       - name: Generate Commits
         run: |
-          total_commit_number=${{ inputs.total_commit_number }}
-          if [[ -z "$total_commit_number" ]]; then
-            total_commit_number=$(( RANDOM % 30 + 1 ))
+          total_commits=${{ inputs.num_commits }}
+          if [[ -z "$total_commits" ]]; then
+            total_commits=$(( RANDOM % 30 + 1 ))
           fi
-          for random_commit_number in $(seq $total_commit_number); do
-            if [[ $total_commit_number -gt 30 ]]; then
+          for commit_number in $(seq $total_commits); do
+            if [[ $total_commits -gt 30 ]]; then
               commit_date=$(date -d "$((RANDOM % 365)) days ago" +"%a, %d %b %Y %T")
             else
               commit_date=$(date +"%a, %d %b %Y %T")
             fi
-            emoji=$(shuf -n 1 emojis.txt)
+            random_emoji=$(shuf -n 1 emojis.txt)
+            commit_message="$random_emoji Commit $commit_number on $commit_date"
             sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(git rev-parse HEAD) -->|" README.md
             git add README.md
-            git commit --date="$commit_date" -s -m "$emoji Commit $random_commit_number on $commit_date"
+            git commit --date="$commit_date" -s -m "$commit_message"
           done
 
       - name: Push Changes
-        run: git push origin main
+        run: git push -u origin main
