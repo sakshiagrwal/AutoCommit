@@ -47,7 +47,7 @@ jobs:
             fi
             random_emoji=$(shuf -n 1 emojis.txt)
             commit_message="$random_emoji Commit $commit_number on $commit_date"
-            sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(git rev-parse HEAD) -->|" README.md
+            sed -i "1s|.*|**[$GITHUB_ACTOR Committed on: ]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA) $commit_date** <!-- $(uuidgen) -->|" README.md
             git add README.md
             git commit --date="$commit_date" -s -m "$commit_message"
           done
