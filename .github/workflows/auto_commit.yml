@@ -26,8 +26,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
-          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
 
       - name: Fetch Emojis
         run: |
@@ -47,7 +47,7 @@ jobs:
             fi
             random_emoji=$(shuf -n 1 emojis.txt)
             commit_message="$random_emoji Commit $commit_number on $commit_date"
-            sed -i "1s|.*|**$GITHUB_ACTOR Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
+            sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             git add README.md
             git commit --date="$commit_date" -s -m "$commit_message"
           done
