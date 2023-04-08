@@ -37,7 +37,7 @@ jobs:
         run: |
           total_commits=${{ inputs.num_commits }}
           if [ -z "$total_commits" ]; then
-            total_commits=$(( RANDOM % 2 ? RANDOM % 10 + 1 : RANDOM % 20 + 11 ))
+            total_commits=$(( RANDOM % 30 + 1 ))
           fi
           for commit_number in $(seq $total_commits); do
             if [ $total_commits -gt 30 ]; then
