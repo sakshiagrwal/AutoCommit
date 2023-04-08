@@ -31,7 +31,7 @@ jobs:
 
       - name: Fetch Emojis
         run: |
-          curl -s "https://raw.githubusercontent.com/Parixshit/AutoCommit/workflow/emojis.txt" > emojis.txt
+          curl -s "https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
