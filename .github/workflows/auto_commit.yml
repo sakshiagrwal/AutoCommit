@@ -7,8 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       num_commits:
-        description: "The number of commits to generate"
-        default: "5"
+        description: "Number of commits"
+        required: true
+      repository:
+        description: "Repo to check out (e.g. owner/repo)"
+        required: true
+      branch:
+        description: "Branch to push changes to"
+        required: true
 
 jobs:
   auto_commit:
@@ -20,16 +26,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          repository: Parixshit/Green
+          repository: ${{ inputs.repository || 'Parixshit/Green' }}
           token: ${{ secrets.PAT }}
-          ref: main
+          ref: ${{ inputs.branch || 'main' }}
 
       - name: Configure Git
         run: |
           git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git config --local user.name "${{ github.actor }}"
 
-      - name: Fetch Emojis
+      - name: Download Emojis
         run: |
           curl -s "https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json" | jq -r '.gitmojis[].code' > emojis.txt
 
