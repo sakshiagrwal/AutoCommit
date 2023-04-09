@@ -16,6 +16,10 @@ on:
         description: "Branch to push changes to"
         required: true
 
+env:
+  REPOSITORY: ${{ inputs.repository || 'Parixshit/Green' }}
+  BRANCH: ${{ inputs.branch || 'main' }}
+
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
@@ -23,12 +27,19 @@ jobs:
       contents: write
 
     steps:
+      - name: Check Repository
+        run: |
+          if ! git ls-remote "https://github.com/${{ env.REPOSITORY }}" &> /dev/null; then
+            echo "Repository not found"
+            exit 1
+          fi
+
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          repository: ${{ inputs.repository || 'Parixshit/Green' }}
+          repository: ${{ env.REPOSITORY }}
           token: ${{ secrets.PAT }}
-          ref: ${{ inputs.branch || 'main' }}
+          ref: ${{ env.BRANCH }}
 
       - name: Configure Git
         run: |
