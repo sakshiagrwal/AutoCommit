@@ -7,14 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       num_commits:
-        description: "Number of commits"
-        required: true
+        description: "Number of commits (default: random number between 1-30)"
+        default: ""
       repository:
-        description: "Repo to check out (e.g. owner/repo)"
-        required: true
+        description: "Repo to check out (default: Parixshit/Green)"
+        default: "Parixshit/Green"
       branch:
-        description: "Branch to push changes to"
-        required: true
+        description: "Branch to push changes to (default: main)"
+        default: "main"
 
 env:
   REPOSITORY: ${{ inputs.repository || 'Parixshit/Green' }}
@@ -56,6 +56,7 @@ jobs:
           if [ -z "$total_commits" ]; then
             total_commits=$(shuf -i 1-30 -n 1)
           fi
+          echo "Generating $total_commits commits..."
           for commit_number in $(seq $total_commits); do
             if [ $total_commits -gt 30 ]; then
               commit_date=$(TZ="Asia/Kolkata" date -d "$(shuf -i 1-365 -n 1) days ago" +"%a, %d %b %Y %r")
