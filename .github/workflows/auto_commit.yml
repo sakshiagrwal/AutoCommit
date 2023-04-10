@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Check Repository
         run: |
-          if ! git ls-remote "https://${{ secrets.PAT }}@github.com/${{ env.REPOSITORY }}" &> /dev/null; then
+          if ! git ls-remote "${{ github.server_url }}/${{ env.REPOSITORY }}" &> /dev/null; then
             echo "Repository not found"
             exit 1
           fi
@@ -43,12 +43,12 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          git config --local user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
 
       - name: Download Emojis
         run: |
-          curl -s "https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json" | jq -r '.gitmojis[].code' > emojis.txt
+          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |

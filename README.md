@@ -10,7 +10,7 @@ The `auto_commit` job runs on the `ubuntu-latest` virtual machine and has write 
 
 1. **Checkout Repository:** This step checks out the `main` branch of the repository using the `actions/checkout@v3` action.
 2. **Configure Git:** This step configures the Git user to match the account that will be used for committing changes.
-3. **Fetch Emojis:** This step downloads a list of emojis from the [Gitmoji](https://gitmoji.dev/) project using the `curl` and `jq` commands.
+3. **Download Emojis:** This step downloads a list of emojis from the [Gitmoji](https://gitmoji.dev/) project using the `curl` and `jq` commands.
 4. **Generate Commits:** This step generates a random number of commits (up to 30) with a random emoji and message using the fetched emojis and a timestamp based on the current time in the Asia/Kolkata timezone. The number of commits can be customized using the `num_commits` input, which has a default value of 5.
 5. **Push Changes:** This step pushes the generated commits to the `main` branch of the repository using the `git push` command.
 
