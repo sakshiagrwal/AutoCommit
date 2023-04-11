@@ -25,8 +25,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
-          git config --local user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
+          git config user.name "$GITHUB_ACTOR"
 
       - name: Generate Commits
         run: |
@@ -41,9 +41,9 @@ jobs:
             else
               commit_date=$(date)
             fi
-            sed -i "1s|.*|**$GITHUB_ACTOR Committed on: $commit_date** <!-- $commit_number -->|" README.md
+            sed -i "1s|.*|**$GITHUB_ACTOR Committed on: $commit_date** <!-- $commit_number - $total_commits -->|" README.md
             git add README.md
-            git commit --date="$commit_date" -m "Commit $commit_number on $commit_date"
+            git commit --date="$commit_date" -m "$commit_date"
           done
 
       - name: Push Changes
