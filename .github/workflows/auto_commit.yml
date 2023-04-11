@@ -27,6 +27,7 @@ jobs:
         run: |
           git config user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
           git config user.name "$GITHUB_ACTOR"
+          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
@@ -41,9 +42,10 @@ jobs:
             else
               commit_date=$(date)
             fi
+            random_emoji=$(shuf -n 1 emojis.txt)
             sed -i "1s|.*|**[$(echo ${GITHUB_ACTOR^^})](${{ github.server_url }}/${{ github.actor }}) Committed on: $commit_date** <!-- $commit_number of $total_commits -->|" README.md
             git add README.md
-            git commit --date="$commit_date" -m "Auto commit: iteration $commit_number of $total_commits on $commit_date"
+            git commit --date="$commit_date" -m "Auto commit: iteration $commit_number of $total_commits $random_emoji on $commit_date"
           done
 
       - name: Push Changes
