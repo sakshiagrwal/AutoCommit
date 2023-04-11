@@ -5,39 +5,28 @@ on:
     branches:
       - workflow
   schedule:
-    # This workflow runs at 00:00 (UTC) / 05:30 AM (IST) every day, except for Tuesdays and Fridays.
     - cron: "0 0 * * 0,1,3,4,6"
   workflow_dispatch:
     inputs:
       num_commits:
-        description: "Number of commits (default: random number between 1-30)"
-      repository:
-        description: "Repo to check out (default: sakshiagrwal/Say)"
-      branch:
-        description: "Branch to push changes to (default: main)"
-
-env:
-  REPOSITORY: ${{ inputs.repository || 'sakshiagrwal/Say' }}
-  BRANCH: ${{ inputs.branch || 'main' }}
+        description: "Number of commits"
 
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          repository: ${{ env.REPOSITORY }}
+          repository: sakshiagrwal/Say
+          ref: main
           token: ${{ secrets.PAT }}
-          ref: ${{ env.BRANCH }}
 
       - name: Configure Git
         run: |
-          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          git config user.name "${{ github.actor }}"
+          git config --local user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
+          git config --local user.name "$GITHUB_ACTOR"
 
       - name: Generate Commits
         run: |
@@ -52,10 +41,10 @@ jobs:
             else
               commit_date=$(date)
             fi
-            sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
+            sed -i "1s|.*|**$GITHUB_ACTOR Committed on: $commit_date** <!-- $commit_number -->|" README.md
             git add README.md
             git commit --date="$commit_date" -m "Commit $commit_number on $commit_date"
           done
 
       - name: Push Changes
-        run: git push origin ${{ github.head_ref }}
+        run: git push origin main
