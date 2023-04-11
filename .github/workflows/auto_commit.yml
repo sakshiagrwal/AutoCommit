@@ -27,13 +27,6 @@ jobs:
       contents: write
 
     steps:
-      - name: Check Repository
-        run: |
-          if ! git ls-remote "https://${{ secrets.PAT }}@github.com/${{ env.REPOSITORY }}" &> /dev/null; then
-            echo "Repository not found"
-            exit 1
-          fi
-
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -45,10 +38,6 @@ jobs:
         run: |
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
-
-      - name: Download Emojis
-        run: |
-          curl "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
@@ -63,15 +52,12 @@ jobs:
             else
               commit_date=$(date)
             fi
-            random_emoji=$(shuf -n 1 emojis.txt)
-            commit_message="$random_emoji Commit $commit_number on $commit_date"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             if [ $commit_number -eq $total_commits ]; then
               sed -i "1s|.*|**[$(echo ${GITHUB_ACTOR^^})](${{ github.server_url }}/${{ github.actor }}) Committed on: $commit_date**|" README.md
-              sed -i "5s|.*|<div align=\"right\"><sub><sup><a href=\"${{ github.server_url }}/${{ github.repository }}\">Read me</a></sup></sub></div>|" README.md
             fi
             git add README.md
-            git commit --date="$commit_date" -m "$commit_message"
+            git commit --date="$commit_date" -m "Commit $commit_number on $commit_date"
           done
 
       - name: Push Changes
