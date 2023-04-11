@@ -11,13 +11,10 @@ on:
     inputs:
       num_commits:
         description: "Number of commits (default: random number between 1-30)"
-        default: ""
       repository:
         description: "Repo to check out (default: sakshiagrwal/Say)"
-        default: "sakshiagrwal/Say"
       branch:
         description: "Branch to push changes to (default: main)"
-        default: "main"
 
 env:
   REPOSITORY: ${{ inputs.repository || 'sakshiagrwal/Say' }}
@@ -51,7 +48,7 @@ jobs:
 
       - name: Download Emojis
         run: |
-          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
+          curl "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
@@ -74,7 +71,7 @@ jobs:
               sed -i "5s|.*|<div align=\"right\"><sub><sup><a href=\"${{ github.server_url }}/${{ github.repository }}\">Read me</a></sup></sub></div>|" README.md
             fi
             git add README.md
-            git commit --date="$commit_date" -s -m "$commit_message"
+            git commit --date="$commit_date" -m "$commit_message"
           done
 
       - name: Push Changes
