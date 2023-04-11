@@ -70,7 +70,7 @@ jobs:
             commit_message="$random_emoji Commit $commit_number on $commit_date"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             if [ $commit_number -eq $total_commits ]; then
-              sed -i "1s|.*|**[${{ github.actor }}](${{ github.server_url }}/${{ github.actor }}) Committed on: $commit_date**|" README.md
+              sed -i "1s|.*|**[$(echo ${GITHUB_ACTOR^^})](${{ github.server_url }}/${{ github.actor }}) Committed on: $commit_date**|" README.md
               sed -i "5s|.*|<div align=\"right\"><sub><sup><a href=\"${{ github.server_url }}/${{ github.repository }}\">Read me</a></sup></sub></div>|" README.md
             fi
             git add README.md
