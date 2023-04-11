@@ -41,7 +41,7 @@ jobs:
             else
               commit_date=$(date)
             fi
-            sed -i "1s|.*|**$GITHUB_ACTOR Committed on: $commit_date** <!-- $commit_number - $total_commits -->|" README.md
+            sed -i "1s|.*|**$commit_date** <!-- $commit_number - $total_commits -->|" README.md
             git add README.md
             git commit --date="$commit_date" -m "$commit_date"
           done
