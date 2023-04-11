@@ -43,7 +43,7 @@ jobs:
             fi
             sed -i "1s|.*|**[$(echo ${GITHUB_ACTOR^^})](${{ github.server_url }}/${{ github.actor }}) Committed on: $commit_date** <!-- $commit_number of $total_commits -->|" README.md
             git add README.md
-            git commit --date="$commit_date" -m "$commit_date"
+            git commit --date="$commit_date" -m "Auto commit: iteration $commit_number of $total_commits on $commit_date"
           done
 
       - name: Push Changes
