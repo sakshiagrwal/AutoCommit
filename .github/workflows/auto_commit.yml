@@ -75,4 +75,4 @@ jobs:
           done
 
       - name: Push Changes
-        run: git push -u origin ${{ github.head_ref }}
+        run: git push origin ${{ github.head_ref }}
