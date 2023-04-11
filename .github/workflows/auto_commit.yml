@@ -62,9 +62,9 @@ jobs:
           echo "Generating $total_commits commits..."
           for commit_number in $(seq $total_commits); do
             if [ $total_commits -gt 30 ]; then
-              commit_date=$(TZ="Asia/Kolkata" date -d "$(shuf -i 1-365 -n 1) days ago" +"%a, %d %b %Y %r")
+              commit_date=$(date -d "$(shuf -i 1-365 -n 1) days ago" +"%a, %d %b %Y %r")
             else
-              commit_date=$(TZ="Asia/Kolkata" date +"%a, %d %b %Y %r")
+              commit_date=$(date +"%a, %d %b %Y %r")
             fi
             random_emoji=$(shuf -n 1 emojis.txt)
             commit_message="$random_emoji Commit $commit_number on $commit_date"
