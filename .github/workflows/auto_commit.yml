@@ -27,10 +27,16 @@ jobs:
       contents: write
 
     steps:
-      - name: Check Repository
+      - name: Check Repository and Branch
         run: |
+          set -e
           if ! git ls-remote "${{ github.server_url }}/${{ env.REPOSITORY }}" &> /dev/null; then
-            echo "Repository not found"
+            echo "Repository '${{ env.REPOSITORY }}' not found"
+            exit 1
+          fi
+
+          if ! git ls-remote "${{ github.server_url }}/${{ env.REPOSITORY }}" | grep -q "refs/heads/${{ env.BRANCH }}"; then
+            echo "Branch '${{ env.BRANCH }}' does not exist in the '${{ env.REPOSITORY }}' repository"
             exit 1
           fi
 
