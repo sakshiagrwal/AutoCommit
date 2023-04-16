@@ -59,7 +59,7 @@ jobs:
 
       - name: Generate Commits
         run: |
-          emojis=("🎉" "🔥" "⚡️" "🩺" "👽️" "🧪" "🐛" "🚑" "🚀" "🏗️")
+          emojis=("🎉" "🎊" "🔥" "⚡️" "🩺" "👽️" "🧪" "🐛" "🚑" "🚀" "🏗️")
           total_commits=${{ inputs.num_commits }}
           if [ -z "$total_commits" ]; then
             total_commits=$(shuf -i 1-30 -n 1)
