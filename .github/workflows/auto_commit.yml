@@ -56,11 +56,19 @@ jobs:
         run: |
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
-          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
-          emojis=("🎉" "💡" "🔨" "📝" "🎨" "✅" "🐛" "🚑" "🚀")
+          emojis=(
+            "🎨" "⚡️" "🔥" "🐛" "🚑️" "✨" "📝" "🚀" "💄" "🎉"
+            "✅" "🔒️" "🔐" "🔖" "🚨" "🚧" "💚" "⬇️" "⬆️" "📌"
+            "👷" "📈" "♻️" "➕" "➖" "🔧" "🔨" "🌐" "✏️" "💩"
+            "⏪️" "🔀" "📦️" "👽️" "🚚" "📄" "💥" "🍱" "♿️" "💡"
+            "🍻" "💬" "🗃️" "🔊" "🔇" "👥" "🚸" "🏗️" "📱" "🤡"
+            "🥚" "🙈" "📸" "⚗️" "🔍️" "🏷️" "🌱" "🚩" "🥅" "💫"
+            "🗑️" "🛂" "🩹" "🧐" "⚰️" "🧪" "👔" "🩺" "🧱" "🧑‍💻"
+            "💸" "🧵" "🦺"
+          )
           total_commits=${{ inputs.num_commits }}
           if [ -z "$total_commits" ]; then
             total_commits=$(shuf -i 1-30 -n 1)
@@ -75,7 +83,7 @@ jobs:
             random_emoji=$(shuf -n 1 -e "${emojis[@]}")
             commit_message="feat: $random_emoji auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
-            git add .
+            git add README.md
             git commit --date="$commit_date" -m "$commit_message"
           done
 
