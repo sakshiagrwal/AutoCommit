@@ -71,7 +71,7 @@ jobs:
             else
               commit_date=$(date)
             fi
-            emoji_index=$(( ${GITHUB_RUN_NUMBER} % ${#emojis[@]} ))
+            emoji_index=$(( ($commit_number - 1) % ${#emojis[@]} ))
             commit_message="feat: ${emojis[emoji_index]} auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             git add README.md
