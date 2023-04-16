@@ -71,7 +71,7 @@ jobs:
             else
               commit_date=$(TZ="Asia/Kolkata" date +"%a, %d %b %Y %r")
             fi
-            random_emoji=${emojis[$(( $RANDOM % ${#emojis[@]} ))]}
+            random_emoji=$(shuf -n 1 -e "${emojis[@]}")
             commit_message="feat: $random_emoji auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             git add README.md
