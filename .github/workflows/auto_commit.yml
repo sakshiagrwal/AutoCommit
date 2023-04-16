@@ -56,6 +56,7 @@ jobs:
         run: |
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
+          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
 
       - name: Generate Commits
         run: |
@@ -74,7 +75,7 @@ jobs:
             random_emoji=$(shuf -n 1 -e "${emojis[@]}")
             commit_message="feat: $random_emoji auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
-            git add README.md
+            git add .
             git commit --date="$commit_date" -m "$commit_message"
           done
 
