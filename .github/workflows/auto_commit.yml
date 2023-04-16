@@ -1,6 +1,9 @@
 name: Auto Commit
 
 on:
+  push:
+    branches:
+      - hmm
   schedule:
     # This workflow runs at 00:00 (UTC) / 05:30 AM (IST) every day, except for Tuesdays and Fridays.
     - cron: "0 0 * * 0,1,3,4,6"
@@ -10,15 +13,15 @@ on:
         description: "Number of commits (default: random number between 1-30)"
         default: ""
       repository:
-        description: "Repo to check out (default: Parixshit/Green)"
-        default: "Parixshit/Green"
+        description: "Repo to check out (default: Sakshiagrwal/AutoCommit)"
+        default: "Sakshiagrwal/AutoCommit"
       branch:
-        description: "Branch to push changes to (default: main)"
-        default: "main"
+        description: "Branch to push changes to (default: hmm)"
+        default: "hmm"
 
 env:
-  REPOSITORY: ${{ inputs.repository || 'Parixshit/Green' }}
-  BRANCH: ${{ inputs.branch || 'main' }}
+  REPOSITORY: ${{ inputs.repository || 'Sakshiagrwal/AutoCommit' }}
+  BRANCH: ${{ inputs.branch || 'hmm' }}
 
 jobs:
   auto_commit:
