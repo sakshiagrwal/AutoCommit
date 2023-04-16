@@ -52,12 +52,9 @@ jobs:
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
 
-      - name: Download Emojis
-        run: |
-          curl -s "https://gitmoji.dev/api/gitmojis" | jq -r '.gitmojis[].emoji' > emojis.txt
-
       - name: Generate Commits
         run: |
+          emojis=("🎉" "🎊" "🔥" "⚡️" "🩺" "👽️" "🧪" "🐛" "🚑" "🚀" "🏗️")
           total_commits=${{ inputs.num_commits }}
           if [ -z "$total_commits" ]; then
             total_commits=$(shuf -i 1-30 -n 1)
@@ -69,11 +66,11 @@ jobs:
             else
               commit_date=$(TZ="Asia/Kolkata" date +"%a, %d %b %Y %r")
             fi
-            random_emoji=$(shuf -n 1 emojis.txt)
-            commit_message="$random_emoji Commit $commit_number on $commit_date"
+            random_emoji=$(shuf -n 1 -e "${emojis[@]}")
+            commit_message="feat: $random_emoji auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
             git add README.md
-            git commit --date="$commit_date" -s -m "$commit_message"
+            git commit --date="$commit_date" -m "$commit_message"
           done
 
       - name: Push Changes
