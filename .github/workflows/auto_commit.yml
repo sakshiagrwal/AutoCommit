@@ -3,7 +3,7 @@ name: Auto Commit
 on:
   push:
     branches:
-      - main
+      - demo
 
 jobs:
   auto_commit:
