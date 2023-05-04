@@ -13,5 +13,3 @@ df -h           = Storage
 free -h         = RAM
 
 lscpu           = CPU
-
-signature verification
