@@ -9,5 +9,7 @@ git switch -c zz
 git push --set-upstream origin zz
 
 df -h           = Storage
+
 free -h         = RAM
+
 lscpu           = CPU
