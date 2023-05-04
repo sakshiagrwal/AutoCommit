@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@b45f778addc56b25de1d37a6c3ce7d9031de62b9
+        uses: actions/checkout@e43e68d3c0827b3120f46f995b314f002d64dbb8 # https://github.com/sakshiagrwal/autocommit/tree/my
         with:
           token: ${{ secrets.PAT }}
 
