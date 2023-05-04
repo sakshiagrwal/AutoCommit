@@ -1,17 +1,27 @@
-https://docs.github.com/en/codespaces/managing-your-codespaces/managing-gpg-verification-for-github-codespaces
+[Managing GPG verification for GitHub Codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-gpg-verification-for-github-codespaces)
 
-git commit -S -s -m "gpg sign using codespaces"
+```
+git commit -S -m "gpg sign using codespaces"
 
-GIT_TRACE=1 git commit -S -s -m "gpg sign using codespaces" (debug)
+# Debug
+GIT_TRACE=1 git commit -S -m "gpg sign using codespaces"
+```
 
-If GPG Key listed as _Unverified_ then just restart your codespaces
+If GPG Key listed as **Unverified** then you will need to stop and restart the codespace. 
 
-git switch -c zz
+```
+# Switch Branches
+git switch -c new-branch
 
-git push --set-upstream origin zz
+# Push
+git push --set-upstream origin new-branch
 
-df -h           = Storage
+# Storage
+df -h
 
-free -h         = RAM
+# RAM
+free -h
 
-lscpu           = CPU
+# CPU
+lscpu
+```
