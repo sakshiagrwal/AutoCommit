@@ -15,6 +15,11 @@ The `auto_commit` job runs on the `ubuntu-latest` virtual machine and has write 
 5. **Generate Commits:** This step generates a random number of commits (up to 30) with a random emoji and message using the fetched emojis and a timestamp based on the current time in the Asia/Kolkata timezone. The number of commits can be customized using the `num_commits` input, which has a default value of a random number between 1 and 30. If `num_commits` is greater than 30, `shuf` command is used to generate a random commit date from the last 365 days using the `date` command with the timezone set to Asia/Kolkata
 6. **Push Changes:** This step pushes the generated commits to the specified branch of the repository using the `git push` command.
 
+   > Use a personal access token (PAT) for push.
+
+   - [Create PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+   - [Set PAT](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md)
+
 ## Schedule
 
 This workflow is triggered on a schedule using a cron expression that runs every day at midnight UTC (`0 0 * * 0,1,3,4,6`), except for Tuesdays and Fridays. The schedule can be adjusted by modifying the `cron` expression in the workflow file.
