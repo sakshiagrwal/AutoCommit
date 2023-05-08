@@ -74,13 +74,16 @@ jobs:
             emoji_index=$(( ($commit_number - 1) % ${#emojis[@]} ))
             commit_message="feat: ${emojis[emoji_index]} auto commit"
             sed -i "1s|.*|**${{ github.actor }} Committed on: $commit_date** <!-- $(uuidgen) -->|" README.md
-            git add README.md
+            count=$(git rev-list --count HEAD)
+            echo "$(date): $count commits" > log.txt
+            git add .
             git commit --date="$commit_date" -m "$commit_message"
           done
-          count=$(git rev-list --count HEAD)
-          echo "$(date): $count commits" >> log.txt
-          git add log.txt
-          git commit -m "feat: $(shuf -n 1 -e "${emojis[@]}") log update"
+          # count=$(git rev-list --count HEAD)
+          # echo "$(date): $count commits" >> log.txt
+          # git add log.txt
+          # git commit -m "feat: $(shuf -n 1 -e "${emojis[@]}") log update"
+          # git commit -m "feat: ${emojis[$(shuf -i 0-${#emojis[@]} -n 1)]} log update"
 
       - name: Push Changes
         run: git push -u origin ${{ github.head_ref }}
