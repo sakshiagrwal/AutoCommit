@@ -77,11 +77,10 @@ jobs:
             git add README.md
             git commit --date="$commit_date" -m "$commit_message"
           done
-          log_date=$(date)
-          log_count=$(git rev-list --count HEAD)
-          echo "$log_date: $log_count commits" >> commit_log.txt
-          git add commit_log.txt
-          git commit -m "Update commit_log.txt"
+          count=$(git rev-list --count HEAD)
+          echo "$(date): $count commits" >> log.txt
+          git add log.txt
+          git commit -m "log: update"
 
       - name: Push Changes
         run: git push -u origin ${{ github.head_ref }}
