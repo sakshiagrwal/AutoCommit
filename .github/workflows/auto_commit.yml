@@ -80,7 +80,7 @@ jobs:
           count=$(git rev-list --count HEAD)
           echo "$(date): $count commits" >> log.txt
           git add log.txt
-          git commit -m "feat: ${emojis[$RANDOM % ${#emojis[@]}]} log update"
+          git commit -m "feat: $(shuf -n 1 -e "${emojis[@]}") log update"
 
       - name: Push Changes
         run: git push -u origin ${{ github.head_ref }}
