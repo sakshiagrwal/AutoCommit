@@ -59,7 +59,7 @@ jobs:
 
       - name: Generate Commits
         run: |
-          emojis=("🎉" "🎊" "🔥" "⚡️" "🩺" "👽️" "🧪" "🐛" "⚗️" "🚀" "🏗️")
+          emojis=("🎉" "🔥" "⚡️" "🩺" "👽️" "🧪" "🐛" "⚗️" "🚀")
           total_commits=${{ inputs.num_commits }}
           if [ -z "$total_commits" ]; then
             total_commits=$(shuf -i 1-30 -n 1)
@@ -77,6 +77,11 @@ jobs:
             git add README.md
             git commit --date="$commit_date" -m "$commit_message"
           done
+          log_date=$(date)
+          log_count=$(git rev-list --count HEAD)
+          echo "$log_date: $log_count commits" >> commit_log.txt
+          git add commit_log.txt
+          git commit -m "Update commit_log.txt"
 
       - name: Push Changes
         run: git push -u origin ${{ github.head_ref }}
